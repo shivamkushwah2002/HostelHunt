@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block body %}
+
+  <style>
+
+.info-section {
+    color: black;
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 50px 20px;
+  gap: 40px;
+}
+
+    .info-card {
+  max-width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  overflow: hidden; /* Prevent content overflow */
+  display: flex;
+  flex-direction: column;
+}
+    .info-card p {
+  margin: 10px 0;
+  word-wrap: break-word;
+  overflow: hidden;
+  font-size:1.5rem;
+}
+form {
+  display: flex;
+  margin-top:2rem;
+  justify-content: center;
+  margin-bottom: 20px;
+  
+}
+</style>
+
+<!-- Search Bar -->
+<form method="get" action="#places" style="text-align:center; margin-bottom:20px;">
+    <input 
+        type="text" 
+        name="search_location" 
+        placeholder="Enter Location" 
+        value="{{ request.GET.search_location }}" 
+        style="padding:12px 20px; font-size:1rem; width:350px; border-radius:5px; border:1px solid #ccc;"
+    >
+    <button 
+        type="submit" 
+        style="padding:10px 15px; font-size:1rem; border:none; border-radius:5px; background-color:#4f46e5; color:#fff; cursor:pointer; margin-left:10px;"
+    >
+        Search
+    </button>
+</form>
+
+{% if no_results %}
+    <p style="text-align:center; font-size:1.2rem; color:red;">Hostel not available from this location</p>
+{% endif %}
+
+<section id='hostel'>
+    <div style="background-color : rgba(0,0,0,0); color:white; padding:10px 0; text-align:center; font-style:italic; font-family:Times Roman; font-size:2rem;">
+        <h1 style="font-size:3rem; color:black;">Available Hostel</h1>
+        <!-- Information Cards -->
+        <div class="info-section">
+            {% for listing in listings %}
+            <div class="info-card">
+                <img src="{{ listing.image.url }}" alt="Hostel Image" style="width:300px; height:200px; object-fit:cover;">
+                <div class="listing-content">
+                    <p class="">{{ listing.hostel_name }}</p>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ listing.location }}</p>
+                    <p class="price"><i class="fa-solid fa-rupee-sign"></i> {{ listing.rent }}</p>
+                    <button class="view-details" onclick="window.location.href='view_details/{{ listing.id }}/'">View Details</button>
+ <button class="view-details" onclick="window.location.href='https://wa.me/{{ listing.contact_info }}?text=Hi%20there!%20I%27m%20interested%20in%20booking%20a%20room%20at%20your%20hostel.%20Could%20you%20please%20share%20details%20about%20availability,%20pricing,%20and%20amenities%3F'">
+ Contact Now
+</button>                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

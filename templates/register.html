@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+/* Page Wrapper - for the blue background */
+.login-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #3498db; /* Match the background color */ */
+}
+
+/* Login Container - the white box */
+.login-container {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 580px;
+    max-width: 90%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.login-container h2 {
+    font-size: 28px;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Container for First Name and Last Name side-by-side */
+.name-fields-container {
+    display: flex;
+    gap: 10px; /* space between fields */
+    {% comment %} margin-bottom: 10px; {% endcomment %}
+}
+
+.name-field {
+    flex: 1; /* equal width for both */
+}
+
+/* Form Group for each input field (Email, Password) */
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Show Password Option */
+.form-options {
+    text-align: left;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-options input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Sign In Button */
+.btn-sign-in {
+    background-color: #3498db;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.btn-sign-in:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Links Section (Forgot Password, Sign Up) */
+.links-section {
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.forgot-link {
+    display: block;
+    color: #3498db;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.links-section p {
+    margin: 0;
+    color: #666;
+}
+
+.signup-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+</style>
+
+<div class="login-page-wrapper">
+    <div class="login-container">
+        <h2>Register</h2>
+        <h4>Who are you?</h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group" style="text-align:center;">
+    {% comment %} <label>User Type:</label> {% endcomment %}
+    <div class="button-toggle-group" style="display:flex; gap:10px; justify-content:center; margin-top:8px; display:flex; flex-direction:row;">
+        <input type="radio" id="owner" name="user_type" value="owner" style="display:none;">
+        <label for="owner" class="toggle-button" style="padding:10px 20px; border:1px solid #ccc; border-radius:5px; cursor:pointer; font-weight:600;">
+            Owner
+        </label>
+        <input type="radio" id="user" name="user_type" value="user" style="display:none;">
+        <label for="user" class="toggle-button" style="padding:10px 20px; border:1px solid #ccc; border-radius:5px; cursor:pointer; font-weight:600;">
+            User
+        </label>
+    </div>
+</div>
+
+<!-- Optional: Styling for selected button -->
+<style>
+/* Style for selected button */
+.toggle-button {
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input[type="radio"]:checked + .toggle-button {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #2980b9;
+}
+</style>
+            <!-- First Name and Last Name side by side -->
+            <div class="name-fields-container">
+                <div class="form-group name-field">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="firstname" placeholder="Enter your first name" required>
+                </div>
+                <div class="form-group name-field">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="lastname" placeholder="Enter your last name" required>
+                </div>
+            </div>
+            <div class="name-fields-container">
+                <div class="form-group name-field">
+                  <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+           </div>
+                <div class="form-group name-field">
+                   <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            </div>
+            
+           
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password1">Password:</label>
+                <input type="password" id="password1" name="password1" placeholder="Enter your password" required>
+            </div>
+            
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="password2">Confirm Password:</label>
+                <input type="password" id="password2" name="password2" placeholder="Confirm your password" required>
+            </div>
+            
+            <!-- User Type Selection -->
+            
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn-sign-in">Register</button>
+        </form>
+        <!-- Optional: Additional links or info can go here -->
+    </div>
+</div>
+{% endblock body %}

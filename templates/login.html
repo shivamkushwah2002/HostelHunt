@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+  
+
+/* Page Wrapper - for the blue background */
+.login-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    {% comment %} background-color: #3498db; /* Match the background color */ {% endcomment %}
+}
+
+/* Login Container - the white box */
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    max-width: 90%; /* Responsive width */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.login-container h2 {
+    font-size: 28px;
+    color: #444;
+    margin-bottom: 35px;
+    font-weight: 500;
+}
+
+/* Form Group for each input field (Email, Password) */
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Show Password Option */
+.form-options {
+    text-align: left;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-options input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.1); /* Slightly larger checkbox */
+    cursor: pointer;
+}
+
+/* Sign In Button */
+.btn-sign-in {
+    background-color: #3498db; /* Blue color */
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.btn-sign-in:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+/* Links Section (Forgot Password, Sign Up) */
+.links-section {
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.forgot-link {
+    display: block; /* Each link on its own line */
+    color: #3498db;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.links-section p {
+    margin: 0;
+    color: #666;
+}
+
+.signup-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+</style>
+
+<div class="login-page-wrapper">
+    <div class="login-container">
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %} <div class="form-group">
+                    <label for="email">Username</label>
+                    <input type="text" id="name" name="username" placeholder="Enter name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                
+                <div class="form-options">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
+                </div>
+                
+                <button type="submit" class="btn-sign-in">SIGN IN</button>
+            </form>
+        
+            <div class="links-section">
+                <a href="#" class="forgot-link">Forgot Username / Password?</a>
+                <p>Don't have an account? <a href="/register" class="signup-link">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript for Show Password functionality
+        document.getElementById('showPassword').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        });
+    </script>
+    
+    {% endblock body %}

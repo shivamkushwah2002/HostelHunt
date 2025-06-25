@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HostelHunt</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+    <style>
+/* Container for icon and label */
+.icon-box {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px; /* initial padding, chhota */
+    border: 1px solid transparent; /* optional, for visual clarity */
+    transition: all 0.3s ease; /* smooth transition */
+    overflow: hidden;
+    width: 30px; /* initial width */
+    height: 30px; /* initial height */
+    cursor: pointer;
+}
+
+/* Icon styling */
+.icon {
+    font-size: 15px; /* initial chhoti size */
+    transition: font-size 0.3s ease;
+}
+
+/* Label initially hidden */
+.label-text {
+    margin-left: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Hover effects */
+.icon-box:hover {
+    width: 150px; /* expand width */
+    height: auto; /* optionally allow height to auto expand */
+    padding: 5px; /* padding bhi badh sakti hai */
+    border-color: #ccc; /* optional */
+}
+
+.icon-box:hover .icon {
+    font-size: 25px; /* bada icon on hover */
+}
+
+.icon-box:hover .label-text {
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1><a href="/" style="color: white; text-decoration: none;">HostelHunt</a></h1>
+        </div>
+        <div class="nav-links">
+          <!-- Example for Home Icon -->
+<a href="/home" class="nav-link active icon-box">
+    <i class="fas fa-home icon"></i>
+    <span class="label-text">Home</span>
+</a>      
+         {% if user.is_authenticated %}
+    {% if user.groups.all.0.name == "owner" %}
+        <a href="/listing" class="nav-link active icon-box">
+            <i class="fa fa-list-alt"></i>
+            <span class="label-text">Listing</span>
+        </a>
+    {% endif %}
+    <a href="/profile" class="nav-link active icon-box" title="{{ user.username }}">
+        <i class="fa fa-user-circle"></i> {{ user.username }}
+    </a>
+    <a href="/logout" class="nav-link active icon-box" title="Logout">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span class="label-text">Logout</span>
+    </a>
+{% else %}
+    <a href="/login" class="nav-link active icon-box" title="Login">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span class="label-text">Login</span>
+    </a>
+{% endif %}
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock body %}
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="copyright">
+                <p>© 2025 HostelHunt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

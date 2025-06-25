@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+/* Container for entire listing page */
+.property-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header image slider */
+.image-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+.image-slider img {
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex: 0 0 auto;
+    width: auto;
+    transition: transform 0.3s;
+}
+.image-slider img:hover {
+    transform: scale(1.05);
+}
+
+/* Info section styles */
+.info-section {
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+.info-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4f46e5;
+}
+
+/* Property details list */
+.property-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+.detail-item {
+    flex: 1 1 45%;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+}
+.detail-item i {
+    margin-right: 10px;
+    color: #6366f1;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Map section */
+.map-section {
+    margin-top: 2rem;
+}
+.map-iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* Contact button styles */
+.contact-btn {
+    display: block;
+    width: 200px;
+    margin: 2rem auto;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+}
+.contact-btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    .property-details {
+        flex-direction: column;
+    }
+    .detail-item {
+        flex: 1 1 100%;
+    }
+}
+.image-container img {
+  margin-left: 2rem;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+</style>
+
+<div class="property-container">
+    <div class="info-section">
+        <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
+        <div class="property-details">
+            <div class="detail-item"><i class="fas fa-user"></i> Hostel Name: {{ listing.hostel_name }}</div>
+            <div class="detail-item"><i class="fas fa-user"></i> Owner Name: {{ listing.owner }}</div>
+            <div class="detail-item"><i class="fas fa-user"></i> Contact : {{ listing.contact_info }}</div>
+            <div class="detail-item"><i class="fas fa-door-closed"></i> Room: {{ listing.room }}</div>
+            <div class="detail-item"><i class="fas fa-info-circle"></i> Description: {{ listing.description }}</div>
+            <div class="detail-item"><i class="fas fa-map-marker-alt"></i> Location: {{ listing.location }}</div>
+            <div class="detail-item"><i class="fas fa-rupee-sign"></i> Rent: {{ listing.rent }}</div>
+            <div class="detail-item"><i class="fas fa-university"></i> Near By: {{ listing.college }}</div>
+            <div class="detail-item"><i class="fas fa-landmark"></i> Landmark: {{ listing.landmark }}</div>
+            <div class="detail-item"><i class="fas fa-wifi"></i> WIFI: {{ listing.wifi }}</div>
+        </div>
+    </div>
+
+    <!-- Hostel Image -->
+    <div class="info-section">
+        <h2><i class="fas fa-image image-container"></i> Hostel Image</h2>
+        <img src="{{ listing.image.url }}" alt="Hostel Image" style="width: 100%; border-radius: 10px; margin-top: 1rem;">
+    </div>
+
+    <!-- Facilities & Features -->
+    <div class="info-section">
+        <h2><i class="fas fa-cogs"></i> Facilities & Features</h2>
+        <div class="property-details">
+            <div class="detail-item"><i class="fas fa-concierge-bell"></i> Home Service: {{ listing.home_service }}</div>
+            <div class="detail-item"><i class="fas fa-bed"></i> Room Type: {{ listing.type_room }}</div>
+            <div class="detail-item"><i class="fas fa-utensils"></i> Meals: {{ listing.meals }}</div>
+            <div class="detail-item"><i class="fas fa-tshirt"></i> Laundry: {{ listing.laundry }}</div>
+            <div class="detail-item"><i class="fas fa-bed"></i> Beds: {{ listing.beds }}</div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section" style="max-width: 800px; margin: 20px auto; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; background-color: #fff;">
+    <h2 style="font-family: Arial, sans-serif; font-size: 1.5rem; margin-bottom: 15px; display: flex; align-items: center;">
+        <i class="fas fa-map" style="margin-right:10px; color:#007bff;"></i> Explore the Area
+    </h2>
+    <!-- Responsive Map Container -->
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+        <iframe 
+            src="https://www.google.com/maps?q={{ listing.location }},{{ listing.longitude }}&output=embed" 
+            style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0; border-radius: 8px;"
+            allowfullscreen
+            loading="lazy">
+        </iframe>
+    </div>
+    <!-- Location Info -->
+    <ul style="margin-top: 1rem; list-style: none; padding: 0; font-family: Arial, sans-serif;">
+        <li style="display: flex; align-items: center; font-size: 1rem;">
+            <i class="fas fa-map-marker-alt" style="margin-right:8px; color:#dc3545;"></i> {{ listing.location }}
+        </li>
+    </ul>
+</div>
+
+    <!-- Contact Button -->
+   <button class="contact-btn" onclick="window.location.href='https://wa.me/{{ listing.contact_info }}?text=Hi%20there!%20I%27m%20interested%20in%20booking%20a%20room%20at%20your%20hostel.%20Could%20you%20please%20share%20details%20about%20availability,%20pricing,%20and%20amenities%3F'">
+ Contact Now
+</button>
+
+</div>
+{% endblock %}

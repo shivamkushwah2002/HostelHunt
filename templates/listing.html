@@ -1,0 +1,131 @@
+
+{% extends "base.html" %}
+
+{% block body %}  
+ <section class="form-section">
+        <div class="form-container">
+            <h1>Add New Hostel Listing</h1>
+<form method="POST" enctype="multipart/form-data">
+                     {% csrf_token %}
+                      <div class="form-group">
+                    <label for="college">Hostel Name</label>
+                    <input type="text" id="hostel" name="hostel" placeholder="Enter hostel name" required>
+                </div>
+                <div class="form-group">
+                    <label for="room">Room </label>
+                    <select id="room" name="room" required>
+                        <option value="">Select Room </option>
+                        <option value="PG">PG </option>
+                        <option value="Hostel"> Hostel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roomType">Room Type</label>
+                    <select id="roomType" name="roomtype" required>
+                        <option value="">Select Room Type</option>
+                        <option value="single">Single </option>
+                        <option value="Sharing"> Sharing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Enter hostel location" required>
+                </div>
+                
+                                <div class="form-group">
+                                    <label for="rent">Monthly Rent (₹)</label>
+                                    <input type="number" id="rent" name="rent" placeholder="Enter monthly rent" required>
+                                </div>
+                    <div class="form-group">
+                    <label for="beds">No.of Beds </label>
+                    <select id="beds" name="beds" required>
+                        <option value="">Select Room Type</option>
+                        <option value="1">Single </option>
+                        <option value="2"> Double</option>
+                        <option value="3">Triple</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Owner Name</label>
+                    <input type="text" id="name" name="Owner_Name" placeholder="Enter Owner Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Information</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Enter contact number" required>
+                </div>
+                <div class="form-group">
+                    <label for="college">College Name</label>
+                    <input type="text" id="college" name="college" placeholder="Enter college name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="6" placeholder="Enter hostel description (facilities, rules, etc.)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="landmark">Landmark</label>
+                    <textarea id="landmark" name="landmark" rows="6" placeholder="Enter landmark" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="wifi">WIFI</label>
+                    <select id="wifi" name="wifi" required>
+                        <option value="">Select WIFI Type</option>
+                        <option value="yes">Available</option>
+                        <option value="no"> Not Available</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="homeservice">Home Service</label>
+                    <select id="homeservice" name="homeservice" required>
+                        <option value="">Select Home Service Type</option>
+                        <option value="yes">Available</option>
+                        <option value="no"> Not Available</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="meals">Meals</label>
+                    <select id="meals" name="meals" required>
+                        <option value="">Select Meals  Type</option>
+                        <option value="yes">Available</option>
+                        <option value="no"> Not Available</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="typeroom">Type of Romm</label>
+                    <select id="typeroom" name="typeroom" required>
+                        <option value="">Select Room  Type</option>
+                        <option value="AC">AC</option>
+                        <option value="non-ac"> Non AC</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="laundry">laundry</label>
+                    <select id="laundry" name="laundry" required>
+                        <option value="">Select Laundry  Type</option>
+                        <option value="yes">Available</option>
+                        <option value="no"> Not Available</option>
+                    </select>
+                </div>
+               
+
+                <div class="form-group">
+                    <label for="image">Hostel Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i>
+                    Add Listing
+                </button>
+            </form>
+        </div>
+    </section>
+
+    {% endblock body %} 
